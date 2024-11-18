@@ -35,7 +35,7 @@ public class SimCardActivatorStepDefinitions {
     }
 
     @Then("the response should indicate active")
-    public void theResponseShouldQueryActiveTrue() throws Exception {
+    public void theResponseShouldQueryActiveTrue() {
 
         String findUrl = "http://localhost:8080/findSim/4";
         ResponseEntity<SimCard> simCardResponse = restTemplate.getForEntity(findUrl, SimCard.class);
@@ -46,7 +46,7 @@ public class SimCardActivatorStepDefinitions {
     }
     
     @Then("the response should indicate inactive")
-    public void SimShouldNotBeActive() throws Exception {
+    public void SimShouldNotBeActive() {
 
         String findUrl = "http://localhost:8080/findSim/5";
         ResponseEntity<SimCard> simCardResponse = restTemplate.getForEntity(findUrl, SimCard.class);

@@ -27,11 +27,11 @@ public class SimController {
 
     @GetMapping("/sim_activation1")
     public List<SimCard> all(){
-        return (List<SimCard>) repository.getAllSimCard();
+        return repository.getAllSimCard();
     }
 
     @PostMapping("/sim_activation")
-    public void SimCardActivation(@RequestBody SimCard request){
+    public void simCardActivation(@RequestBody SimCard request){
         //Sim Number is the Iccid number for a sim card
         ActivationResponse activationResponse = simService.sendPostRequest(request.getIccid());
         if (activationResponse  != null && activationResponse.isActivated()) {
@@ -41,7 +41,6 @@ public class SimController {
             //Sim card is activated
             request.setActive(true);
             repository.addSimCard(request);
-            System.out.println(repository);
         }
         else {
             //Sim card failed to activate, record activation failure
