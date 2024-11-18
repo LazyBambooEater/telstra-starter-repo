@@ -33,8 +33,8 @@ public class SimController {
     @PostMapping("/sim_activation")
     public void SimCardActivation(@RequestBody SimCard request){
         //Sim Number is the Iccid number for a sim card
-        boolean activator = simService.sendPostRequest(request.getSimNumber());
-        if (activator == true) {
+        ActivationResponse activationResponse = simService.sendPostRequest(request.getIccid());
+        if (activationResponse  != null && activationResponse.isActivated()) {
             // This is a psuedo auto incremental that would happen in a database
             long size = repository.getAllSimCard().size() + 1;
             request.setId(size);
@@ -44,8 +44,10 @@ public class SimController {
             System.out.println(repository);
         }
         else {
-            //Sim card failed to activate
-            System.out.println("Failure to activate");
+            //Sim card failed to activate, record activation failure
+            long size = repository.getAllSimCard().size() + 1;
+            request.setId(size);
+            repository.addSimCard(request);
         }
     }
 

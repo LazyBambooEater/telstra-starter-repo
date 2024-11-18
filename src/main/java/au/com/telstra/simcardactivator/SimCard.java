@@ -13,13 +13,13 @@ public class SimCard {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     @Column(nullable = false, unique = true)
-    private String simNumber;
+    private String iccid;
     @Column(nullable = false)
     private String customerEmail;
     private boolean active = false;
 
-    public SimCard(String simNumber, String customerEmail) {
-        this.simNumber = simNumber;
+    public SimCard(String iccid, String customerEmail) {
+        this.iccid = iccid;
         this.customerEmail = customerEmail;
     }
 
@@ -31,12 +31,12 @@ public class SimCard {
         this.id = id;
     }
 
-    public String getSimNumber() {
-        return simNumber;
+    public String getIccid() {
+        return iccid;
     }
 
-    public void setSimNumber(String simNumber) {
-        this.simNumber = simNumber;
+    public void setIccid(String iccid) {
+        this.iccid = iccid;
     }
 
     public String getCustomerEmail()
@@ -57,7 +57,7 @@ public class SimCard {
     public String toString() {
         return "SimCard{" +
             "id=" + id +
-            ", simNumber='" + simNumber + '\'' +
+            ", iccid='" + iccid + '\'' +
             ", customerEmail='" + customerEmail + '\'' +
             ", active=" + active +
             '}';

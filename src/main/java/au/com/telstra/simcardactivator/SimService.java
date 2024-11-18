@@ -19,7 +19,7 @@ public class SimService {
         this.restTemplate = restTemplateBuilder.build();
     }
 
-    public boolean sendPostRequest(String iccid) {
+    public ActivationResponse sendPostRequest(String iccid) {
         // url to activate sim card
         String url = "http://localhost:8444/actuate";
         
@@ -34,8 +34,15 @@ public class SimService {
         // Create request entity
         HttpEntity<Map<String, Object>> requestEntity = new HttpEntity<>(requestBody, headers);
 
-        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
+        ResponseEntity<ActivationResponse> response = restTemplate.exchange(url, HttpMethod.POST, requestEntity, ActivationResponse.class);
 
-        return response.getStatusCode().is2xxSuccessful();
+        if (response.getStatusCode().is2xxSuccessful())
+        {
+            return response.getBody();
+        }
+        else
+        {
+            throw new RuntimeException("Failed to process Sim Card");
+        }
     }
 }
